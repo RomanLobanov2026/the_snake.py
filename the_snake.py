@@ -67,56 +67,6 @@ class Apple(GameObject):
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
 
-class Snake(GameObject):
-    def __init__(self, color=SNAKE_COLOR, screen_wigth, screen_height):
-       super().__init__(screen_wigth, screen_height)
-
-       start_x = screen_wigth // 2
-       start_y = screen_height // 2
-       self.positions = [(start_x, start_y)]
-
-       self.lenght = 1
-       self.direction = (1, 0)
-       self.next_direction = None
-       self.body_color = color
-       self.last = None
-
-    def get_head_position(self):
-        return self.positions[0]
-    
-    def move(self, screen_wigth, screen_height):
-        head_x, head_y = self.get_head_position()
-        dx, dy = self.direction
-        new_head = (
-            (head_x + dx * GRID_SIZE) % screen_wigth,
-            (head_y + dy * GRID_SIZE) % screen_height,
-        )
-        self.positions.insert(0, new_head)
-
-        if len(self.positions) > self.lenght:
-            self.last = self.positions.pop()
-        else:
-            self.last = None
-
-    def update_direction(self):
-        if self.next_direction:
-            self.direction = self.next_direction
-            self.next_direction = None
-       
-    def draw(self):
-        for position in self.positions[:-1]:
-            rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
-            pygame.draw.rect(screen, self.body_color, rect)
-            pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-    def move():
-        head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
-        pygame.draw.rect(screen, self.body_color, head_rect)
-        pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
-
-    if self.last:
-        last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
-        pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
-
 def main():
     # Инициализация PyGame:
     pygame.init()
