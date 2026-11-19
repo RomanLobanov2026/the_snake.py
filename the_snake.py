@@ -41,16 +41,16 @@ clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
 class GameObject:
-    def __init__(self, screen_wigth, screen_height):
-        self.position = (screen_wight // 2, screen_height // 2)
-        self.body_color = None
+    def__init__(self, position, body_color):
+        self.position = position
+        self.body_color = body_color
     
-    def draw(self, screen):
+    def draw(self):
         pass
 
 
 class Apple(GameObject):
-    def __init__(self, color=APPLE_COLOR):
+    def__init__(self, color=APPLE_COLOR):
         super().__init__(SCREEN_WIGHT, SCREEN_HEIGHT)
         self.body_color = color
         self.randomize_position()
