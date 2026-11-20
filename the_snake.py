@@ -45,12 +45,12 @@ class GameObject:
         self.position = position
         self.body_color = body_color
     
-    def draw(self):
+    def draw(self, screen):
         pass
 
 
 class Apple(GameObject):
-    def__init__(self, color=APPLE_COLOR):
+    def __init__(self, color=APPLE_COLOR):
         super().__init__(SCREEN_WIGHT, SCREEN_HEIGHT)
         self.body_color = color
         self.randomize_position()
@@ -65,6 +65,19 @@ class Apple(GameObject):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+
+
+class Snake(GameObject):
+    def __init__(self, color=SNAKE_COLOR):
+        super().__init__(self, body_color)
+        self.reset()
+
+    def reset(self):
+        self.length = 1
+        self.positions = [self.position]
+        self.direction = RIGHT
+        self.next_direction = None
+        self.last = None
 
 
 def main():
