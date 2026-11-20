@@ -72,6 +72,40 @@ class Snake(GameObject):
         super().__init__(self, body_color)
         self.reset()
 
+    def get_head_position(self):
+        """Возвращает позицию головы змейки."""
+        return self.positions[0]
+
+    def move(self, screen_width, screen_height):
+        """Обновляет позицию змейки (координаты каждой секции),
+        добавляя новую голову в начало списка positions и удаляя последний
+        элемент, если длина змейки не увеличилась.
+        """
+        head_x, head_y = self.get_head_position()
+        dx, dy = self.direction
+        new_head = (
+            (head_x + dx * GRID_SIZE) % screen_width,
+            (head_y + dy * GRID_SIZE) % screen_height,
+        )
+        self.positions.insert(0, new_head)
+
+        if len(self.positions) > self.length:
+            self.last = self.positions.pop()
+        else:
+            self.last = None
+
+    def update_direction(self):
+        """Обновляет текущее направление движения змейки."""
+        if self.next_direction:
+            curr_dx, curr_dy = self.direction
+            next_dx, next_dy = self.next_direction
+
+            if curr_dx + next_dx != 0 or curr_dy + next_dy != 0:
+                self.direction = self.next_direction
+
+        self.next_direction = None
+
+
     def reset(self):
         self.length = 1
         self.positions = [self.position]
@@ -79,6 +113,37 @@ class Snake(GameObject):
         self.next_direction = None
         self.last = None
 
+    def draw(self, screen):
+        """Отрисовывает змейку на экране, затирая след."""
+        if self.last:
+            last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
+            pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
+
+        for position in self.positions:
+            rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
+            pygame.draw.rect(screen, self.body_color, rect)
+            pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+
+
+# Функция обработки действий пользователя
+def handle_keys(game_object):
+    """Обрабатывает нажатия клавиш,
+    чтобы изменить направление движения змейки.
+    """
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            raise SystemExit
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP and game_object.direction != DOWN:
+                game_object.next_direction = UP
+            elif event.key == pygame.K_DOWN and game_object.direction != UP:
+                game_object.next_direction = DOWN
+            elif event.key == pygame.K_LEFT and game_object.direction != RIGHT:
+                game_object.next_direction = LEFT
+            elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
+                game_object.next_direction = RIGHT
+                
 
 def main():
     # Инициализация PyGame:
