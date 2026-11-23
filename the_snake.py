@@ -41,20 +41,24 @@ clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
 class GameObject:
-    """Базовый класс для всех игровых объектов."""
+    """
+    Базовый класс для игровых объектов.
+    """
     def __init__(self, position, body_color):
-        """Инициализирует позицию (центр поля) и цвет объекта."""
+        # position - позиция объекта на игровом поле;
+        # body_color - цвет объекта;
         self.position = position
         self.body_color = body_color
     
     def draw(self, screen):
-        raise NotimplementedError(
-        f"{type(self).__name__} body_color()")
         pass
 
 
 class Apple(GameObject):
-    """Яблоко, появляющееся в случайной ячейке игрового поля."""
+    """
+    Яблоко, появляющееся в случайной ячейке игрового поля.
+    Наследует от GameObject.
+    """
     def __init__(self, color=APPLE_COLOR):
         super().__init__(body_color)
         self.body_color = color
