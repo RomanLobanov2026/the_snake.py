@@ -41,11 +41,14 @@ clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
 class GameObject:
-    def __init__(self, position, body_color):
-        self._position = position
-        self._body_color = body_color
+    def __init__(self, body_color=WHITE):
+        self.body_color = body_color
+        self.position = None
     
-    def draw(self, screen):
+    def draw(self):
+        """
+        Отрисовка фигур с переопределением в наследуемых классах.
+        """
         pass
 
 
