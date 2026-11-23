@@ -78,7 +78,7 @@ class Snake(GameObject):
 
     def get_head_position(self):
         """Возвращает позицию головы змейки."""
-        return self.positions[0]
+        return self._positions[0]
 
     def move(self, screen_width, screen_height):
         """Обновляет позицию змейки (координаты каждой секции),
@@ -86,7 +86,7 @@ class Snake(GameObject):
         элемент, если длина змейки не увеличилась.
         """
         head_x, head_y = self.get_head_position()
-        dx, dy = self.direction
+        dx, dy = self._direction
         new_head = (
             (head_x + dx * GRID_SIZE) % screen_width,
             (head_y + dy * GRID_SIZE) % screen_height,
