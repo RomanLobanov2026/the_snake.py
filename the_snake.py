@@ -41,14 +41,9 @@ clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
 class GameObject:
-    """
-    Базовый класс для игровых объектов.
-    """
     def __init__(self, position, body_color):
-        # position - позиция объекта на игровом поле;
-        # body_color - цвет объекта;
-        self.position = position
-        self.body_color = body_color
+        self._position = position
+        self._body_color = body_color
     
     def draw(self, screen):
         pass
@@ -61,8 +56,8 @@ class Apple(GameObject):
     """
     def __init__(self, color=APPLE_COLOR):
         super().__init__(body_color)
-        self.body_color = color
-        self.randomize_position()
+        self._body_color = color
+        self._randomize_position()
 
     def randomize_position(self):
         max_x_cells = SCREEN_WIDTH // GRID_SIZE
@@ -79,7 +74,7 @@ class Apple(GameObject):
 class Snake(GameObject):
     def __init__(self, color=SNAKE_COLOR):
         super().__init__(self, body_color)
-        self.reset()
+        self._reset()
 
     def get_head_position(self):
         """Возвращает позицию головы змейки."""
@@ -96,31 +91,31 @@ class Snake(GameObject):
             (head_x + dx * GRID_SIZE) % screen_width,
             (head_y + dy * GRID_SIZE) % screen_height,
         )
-        self.positions.insert(0, new_head)
+        self._positions.insert(0, new_head)
 
         if len(self.positions) > self.length:
-            self.last = self.positions.pop()
+            self._last = self._positions.pop()
         else:
-            self.last = None
+            self._last = None
 
     def update_direction(self):
         """Обновляет текущее направление движения змейки."""
-        if self.next_direction:
-            curr_dx, curr_dy = self.direction
-            next_dx, next_dy = self.next_direction
+        if self._next_direction:
+            curr_dx, curr_dy = self._direction
+            next_dx, next_dy = self._next_direction
 
             if curr_dx + next_dx != 0 or curr_dy + next_dy != 0:
-                self.direction = self.next_direction
+                self._direction = self._next_direction
 
-        self.next_direction = None
+        self._next_direction = None
 
 
     def reset(self):
-        self.length = 1
-        self.positions = [self.position]
-        self.direction = RIGHT
-        self.next_direction = None
-        self.last = None
+        self._length = 1
+        self._positions = [self.position]
+        self._direction = RIGHT
+        self._next_direction = None
+        self._last = None
 
     def draw(self, screen):
         """Отрисовывает змейку на экране, затирая след."""
