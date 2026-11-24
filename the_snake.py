@@ -168,8 +168,8 @@ class Snake(GameObject):
 
 # Функция обработки действий пользователя
 def handle_keys(game_object):
-    """Обрабатывает нажатия клавиш,
-    чтобы изменить направление движения змейки.
+    """Обрабатывает нажатия клавиш 
+    управления.
     """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -187,19 +187,25 @@ def handle_keys(game_object):
                 
 
 def main():
+    """
+    Запускает основной цикл игры.
+    """
     # Инициализация PyGame:
     pygame.init()
-    # Тут нужно создать экземпляры классов.
+    
+    # Создание экземпляров классов.
     snake = Snake()
     apple = Apple()
-    apple.draw(screen)
+    
     while True:
         clock.tick(SPEED)
   
-        # Тут опишите основную логику игры.
+        # Основная логика игры.
         # handle_keys(snake)
         snake.update_direction()
         snake.move()
+
+        # Проверка столкновения змейки с собой
         if snake.get_head_position() in snake.positions[1:]:
             snake.reset()
             apple.randomize_position()
