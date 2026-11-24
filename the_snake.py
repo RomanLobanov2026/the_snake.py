@@ -94,7 +94,7 @@ class Snake(GameObject):
         """
         super().__init__(SNAKE_COLOR)
         self.length = 1
-        self.positions = [self.position]
+        self.position = self.position
         self.direction = RIGHT
         self.next_direction = None
         self.last = None
