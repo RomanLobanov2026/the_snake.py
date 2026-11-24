@@ -103,14 +103,14 @@ class Snake(GameObject):
         """
         Возвращает позицию головы змейки.
         """
-        return self._positions[0]
+        return self.positions[0]
 
     def move(self):
         """
         Перемещает змейку на одну ячейку в текущем направлении.
         """
         current_head_position = self.get_head_position()
-        dx, dy = self._direction
+        dx, dy = self.direction
         new_head_direction = (
           ( 
             current_head_position[0]
@@ -121,11 +121,11 @@ class Snake(GameObject):
           ) % SCREEN_HEIGHT
         )
         
-        self._positions.insert(0, new_head_position)
+        self.positions.insert(0, new_head_position)
         self.last = self.positions[-1]
 
         if len(self.positions) > self.length:
-            self._positions.pop()
+            self.positions.pop()
 
     def update_direction(self):
         """
@@ -158,8 +158,7 @@ class Snake(GameObject):
         """
         Сбрасывает змейку в начальное состояние.
         """
-        # Сбросить змейку в начальное состояние, повторно
-        вызывая конструктор
+        # Сбросить змейку в начальное состояние, повторно вызывая конструктор
         self.__init__()
         self.direction = choice([RIGHT, LEFT, UP, DOWN])
         # Очистить экран
