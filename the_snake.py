@@ -209,13 +209,18 @@ def main():
         if snake.get_head_position() in snake.positions[1:]:
             snake.reset()
             apple.randomize_position()
-            apple.draw(screen)
+            
+        # Проверка съеденного яблока
         if snake.get_head_position() == apple.position:
             snake.length += 1
             apple.randomize_position(snake.positions)
+
+        # Отрисовка
+            snake.draw(screen)
             apple.draw(screen)
+
+        # Обновление экрана
         pygame.display.update()
-        snake.draw(screen)
 
 
 if __name__ == '__main__':
