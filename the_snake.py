@@ -42,20 +42,18 @@ clock = pygame.time.Clock()
 # Тут опишите все классы игры.
 class GameObject:
     """
-    Базовый класс игровых объектов.
+    Базовый класс для игровых объектов
     """
-    def __init__(self, body_color:tuple = BOARD_BACKGROUND_COLOR):
+    def __init__(self, body_color=BOARD_BACKGROUND_COLOR):
         """
-        Инициализирует игровой объект.
-
-        body_color:Цвет тела игрового объекта.
+        Инициализация объекта
         """
+        self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         self.body_color = body_color
-        self.position = (SCREEN_WIDTH//2, SCREEN_HEIGHT//2)
     
     def draw(self):
         """
-        Отрисовывает игровой объект.
+        Метод для отриовки
         """
         pass
 
